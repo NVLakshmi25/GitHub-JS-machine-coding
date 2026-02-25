@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+  .dot {
+    width: 20px;
+    height: 20px;
+    background: red;
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    transition: 0.1s;
+  }
+</style>
+
+<div class="dot"></div>
+
+<script>
+const dot = document.querySelector(".dot");
+
+document.addEventListener("mousemove", (e) => {
+  dot.style.left = e.clientX - 15 + "px"; // slightly behind cursor
+  dot.style.top = e.clientY - 15 + "px";
+});
+</script>
+</body>
+</html>

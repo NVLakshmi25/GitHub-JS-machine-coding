@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- This heading will display the live clock time -->
+    <h1 id="clock"></h1>
+
+<script>
+// Function that updates the clock every second
+    function updateClock() {
+
+        // Create a new Date object (current date & time)
+        const now = new Date();
+
+        // Get current hour (0-23 format)
+        let hours = String(now.getHours()).padStart(2, "0") ;
+       
+
+        // Get current minutes (0-59)
+       const minutes = String(now.getMinutes()).padStart(2, "0");
+
+        // Get current seconds (0-59)
+      
+       
+const seconds = String(now.getSeconds()).padStart(2, "0");
+
+        // Decide AM or PM
+        // If hours >= 12 → PM, else AM
+        const ampm = hours >= 12 ? "PM" : "AM";
+
+        // Convert 24-hour format to 12-hour format
+        // Example: 13 % 12 = 1
+        // If result is 0 (like 12 AM), use 12 instead
+        hours = hours % 12 || 12;
+
+        // Update the text inside <h1 id="clock">
+        document.getElementById("clock").textContent =
+            `${hours}:${minutes}:${seconds} ${ampm}`;
+    }
+
+    // Call updateClock function every 1000 milliseconds (1 second)
+    setInterval(updateClock, 1000);
+
+</script>
+</body>
+</html>
