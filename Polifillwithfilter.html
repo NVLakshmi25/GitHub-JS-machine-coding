@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // Polyfill for Array.prototype.filter
+
+if (!Array.prototype.myFilter) {
+
+  Array.prototype.myFilter = function(callback, thisArg) {
+
+    // Step 1: Check if callback is function
+    if (typeof callback !== "function") {
+      throw new TypeError(callback + " is not a function");
+    }
+
+    // Step 2: Store reference of calling array
+    const array = this;
+
+    // Step 3: Create new result array
+    const result = [];
+
+    // Step 4: Loop through array
+    for (let i = 0; i < array.length; i++) {
+
+      // Important: Skip empty indexes (sparse arrays)
+      if (i in array) {
+
+        // Step 5: Execute callback
+        // callback(currentValue, index, originalArray)
+        const shouldInclude = callback.call(
+          thisArg,              // optional this binding
+          array[i],             // currentValue
+          i,                    // index
+          array                 // original array
+        );
+
+        // Step 6: If true → push into result
+        if (shouldInclude) {
+          result.push(array[i]);
+        }
+      }
+    }
+
+    // Step 7: Return new filtered array
+    return result;
+  };
+}
+const arr = [1, 2, 3, 4, 5];
+
+const result = arr.myFilter((value, index, array) => {
+  console.log("Value:", value);
+  console.log("Index:", index);
+  console.log("Array:", array);
+  return value < 3;
+});
+
+console.log(result); // [1, 2]
+    </script>
+</body>
+</html>
+
+
+
+<!-- 💯 Final Clean Short Version (If Interviewer Wants Minimal)
+Array.prototype.myFilter = function(callback) {
+  const result = [];
+
+  for (let i = 0; i < this.length; i++) {
+    if (callback(this[i], i, this)) {
+      result.push(this[i]);
+    }
+  }
+
+  return result;
+}; -->

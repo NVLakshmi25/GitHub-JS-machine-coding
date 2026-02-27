@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+       if (!Array.prototype.myMap) {
+
+  Array.prototype.myMap = function(callback, thisArg) {
+
+    if (typeof callback !== "function") {
+      throw new TypeError("Callback must be a function");
+    }
+
+    const array = this;
+    const result = [];
+
+    for (let i = 0; i < array.length; i++) {
+
+      if (i in array) {  // skip sparse indexes
+
+        const mappedValue = callback.call(
+          thisArg,
+          array[i],  // currentValue
+          i,         // index
+          array      // original array
+        );
+
+        result.push(mappedValue);
+      }
+    }
+
+    return result;
+  };
+}
+const arr = [1, 2, 3, 4, 5];
+
+const result = arr.myMap((value, index, array) => {
+  console.log("Value:", value);
+  console.log("Index:", index);
+  console.log("Array:", array);
+  return value < 3;
+});
+
+console.log(result); // [1, 2]
+
+    </script>
+</body>
+</html>
