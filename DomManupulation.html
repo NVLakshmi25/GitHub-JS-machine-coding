@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+  <!-- Step 1: H1 initially showing Hello World -->
+  <h1 id="title">Hello World</h1>
+
+  <!-- Link JS file at bottom for better performance -->
+  <script src="app.js"></script>
+  <script>
+    // Step 1: Create array using const (as instructed)
+const names = ["Niha", "Kushi", "Nidi", "AA"];
+
+// Step 2: Select H1 element
+const heading = document.getElementById("title");
+
+// Step 3: Maintain index state
+let currentIndex = 0;
+
+// Step 4: Add click event
+heading.onclick = function () {
+
+  // Change text to current name
+  heading.textContent = names[currentIndex];
+
+  // Move to next index
+  currentIndex++;
+
+  // If index reaches array length, reset to 0
+  if (currentIndex === names.length) {
+    currentIndex = 0;
+  }
+};
+  </script>
+
+</body>
+</html>

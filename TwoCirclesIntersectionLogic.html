@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.circle {
+  position: absolute;
+  border: 2px solid red;
+  border-radius: 50%;
+}
+
+    </style>
+</head>
+<body>
+    <script>
+        // Store maximum 2 circles
+let circles = [];
+
+// Utility function: generate random number between min & max
+function getRandom(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+// Distance formula (from mathematics)
+function isIntersecting(c1, c2) {
+  const dx = c1.x - c2.x;
+  const dy = c1.y - c2.y;
+
+  // Distance between centers using Pythagoras theorem
+  const distance = Math.sqrt(dx * dx + dy * dy);
+
+  // If distance < sum of radii => intersecting
+  return distance < (c1.radius + c2.radius);
+}
+
+// Click event
+document.addEventListener("click", (e) => {
+
+  // If already 2 circles → remove both
+  if (circles.length === 2) {
+    document.querySelectorAll(".circle").forEach(c => c.remove());
+    circles = [];
+  }
+
+  const radius = getRandom(10, 100);
+
+  const circle = document.createElement("div");
+  circle.classList.add("circle");
+
+  circle.style.width = radius * 2 + "px";
+  circle.style.height = radius * 2 + "px";
+
+  // Centering circle at click point
+  circle.style.left = (e.clientX - radius) + "px";
+  circle.style.top = (e.clientY - radius) + "px";
+
+  document.body.appendChild(circle);
+
+  // Save circle data
+  circles.push({
+    x: e.clientX,
+    y: e.clientY,
+    radius
+  });
+
+  // If 2 circles exist → check intersection
+  if (circles.length === 2) {
+    const result = isIntersecting(circles[0], circles[1]);
+    console.log("Intersecting:", result);
+  }
+});
+
+    </script>
+</body>
+</html>
+<!-- 
+🧠 Thought Process (As Interviewee)
+
+First I clarified the requirements:
+
+Max 2 circles
+
+Random radius
+
+Center at click position
+
+Detect intersection
+
+Then I broke problem into 3 parts:
+
+1️⃣ UI Creation
+
+Create circle div
+
+Border radius 50%
+
+Absolute positioning
+
+2️⃣ Data Management
+
+Store circle objects
+
+Limit to 2
+
+3️⃣ Intersection Logic
+
+Use distance formula:
+
+distance = √((x1-x2)^2 + (y1-y2)^2)
+
+if distance < r1 + r2 → intersecting
+
+That converts geometry into simple math.
+
+🎤 Final Interview Answer
+
+How do you feel?
+
+I feel good. I structured the problem into smaller parts and solved each independently.
+
+How many points?
+
+I would give myself 8.5/10 because I handled edge cases and math correctly.
+
+What did you do well?
+
+Broke problem logically
+
+Used distance formula correctly
+
+Managed state cleanly
+
+Considered edge cases
+
+What can improve?
+
+Handle circle-inside-circle case
+
+Add animation
+
+Show intersection visually
+
+🏆 What This Shows
+
+Strong DOM knowledge
+
+Math logic
+
+React state control
+
+Clean architecture thinking
+
+Real interview-level reasoning -->
